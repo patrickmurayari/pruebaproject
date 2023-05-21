@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
 import Login from "./Components/Login";
@@ -8,10 +8,11 @@ import Home from "./Header";
 
 
 function App() {
+const location = useLocation()
   return (
     <AnimatePresence>
       <div>
-        <Home/>
+      {(location.pathname==="/about" )&& <Home/>}
         <Routes>
         <Route path="/about" element={<About />}></Route>
         <Route path="/" element={<Login />}></Route>
