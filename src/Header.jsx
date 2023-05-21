@@ -1,21 +1,25 @@
 import { MdShoppingBasket } from 'react-icons/md';
-import logo from "../src/logoo.jpg"
+import logo from "./../src/logoo.jpg"
 import avatar from "../src/avatar.png"
 import {motion} from  "framer-motion"
 import { Link } from 'react-router-dom';
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "../src/Firebase.config";
 
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import {app} from "../src/Firebase.config"
+import { useNavigate } from 'react-router-dom';
 function Home() {
-
-  const firebaseauth = getAuth(app)
-  const provider =  new GoogleAuthProvider()
-  const login = async ()=> {
-const response =await  signInWithPopup(firebaseauth,provider,)
-console.log(response
-  );
-  }
-
+  const navigate = useNavigate()
+  const handleLogout = async () => {
+    const firebaseAuth = getAuth(app);
+  
+    try {
+      await signOut(firebaseAuth);
+     navigate("/")
+     
+    } catch (error) {
+      console.log("Error al hacer logout:", error);
+    }
+  };
 
   return (
     <div className="fixed z-50 w-screen p-4 px-16">
@@ -38,8 +42,10 @@ console.log(response
         <div className="flex items-center">
           <MdShoppingBasket className="text-2xl" />
         <div > 
-        <motion.img onClick={login} whileTap={{scale: 0.6}} src={avatar} alt="userprofile"  className='w-10 ml-5 min-w[40px] h-10 min-h[40px] shadow-2xl' />
+        <motion.img  whileTap={{scale: 0.6}} src={avatar} alt="userprofile"  className='w-10 ml-5 min-w[40px] h-10 min-h[40px] shadow-2xl' />
+        
         </div>
+        <button className='bg-red-500 ml-5 text-white w-200 h-10 '  onClick={handleLogout}>Logout</button>
         </div>
       </div>
       <div className="hidden md:flex w-full h-full"></div>
