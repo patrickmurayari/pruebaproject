@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import { AnimatePresence } from "framer-motion";
+
 function App() {
   return (
     <AnimatePresence>
