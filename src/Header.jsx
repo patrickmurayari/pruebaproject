@@ -1,4 +1,4 @@
-import { MdShoppingBasket } from 'react-icons/md';
+import { BsCart4 } from "react-icons/bs";
 import logo from "./../src/logoo.jpg"
 import avatar from "../src/avatar.png"
 import { motion } from  "framer-motion"
@@ -41,7 +41,7 @@ function Home() {
           </li>
         </ul>
         <div className="flex items-center">
-          <MdShoppingBasket className="text-2xl" />
+          <BsCart4 className="text-2xl" />
           <div> 
             <motion.img src={user ? user.photoURL : avatar} whileTap={{scale: 0.6}} alt="userprofile" className='w-10 ml-5 min-w[40px] h-10 min-h[40px] shadow-2xl rounded-full' />
           </div>
