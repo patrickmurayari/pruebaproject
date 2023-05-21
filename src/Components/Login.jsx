@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { app } from "../Firebase.config";
 import { useNavigate } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ const Login = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
-        // Usuario autenticado, redirigir al Home principal
+      
         navigate("/home");
       }
     });
@@ -29,14 +29,18 @@ const Login = () => {
       // Limpiar el event listener al desmontar el componente
       unsubscribe();
     };
-  }, [firebaseAuth, history]);
+  }, [firebaseAuth, navigate]);
 
-  const login = async () => {
+  const handleLogin = async () => {
     try {
+      
+      await setPersistence(firebaseAuth, browserSessionPersistence);
+
+      // Iniciar sesión con Google
       const response = await signInWithPopup(firebaseAuth, provider);
       console.log(response);
     } catch (error) {
-      console.log(error);
+      console.log("Error al iniciar sesión:", error);
     }
   };
 
@@ -45,7 +49,7 @@ const Login = () => {
       <form className="bg-white shadow-md rounded-lg px-10 py-8">
         <h1 className="text-3xl font-bold mb-8 text-center">Sign In</h1>
         <div className="mb-6">
-          <button onClick={login} className="bg-blue-500 w-56 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button onClick={handleLogin} className="bg-blue-500 w-56 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Sign in with Google
           </button>
         </div>

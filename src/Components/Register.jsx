@@ -6,6 +6,8 @@ import { registerinitiate } from "../Redux/Actions"
 
 const Register = () => {
 
+
+    
     const {currentuser} = useSelector(state=>state.user)
     const dispatch = useDispatch
 const navigate = useNavigate() 
