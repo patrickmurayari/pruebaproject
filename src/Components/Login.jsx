@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 //import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, setPersistence, browserSessionPersistence } from "firebase/auth";
+import { getAuth,FacebookAuthProvider, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { app } from "../Firebase.config";
 import { useNavigate } from 'react-router-dom';
-
+import { FaFacebook } from "react-icons/Fa";
 import { FcGoogle } from "react-icons/Fc";
 const Login = () => {
   const [state, setState] = useState({
@@ -17,6 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const provider2 = new FacebookAuthProvider();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
@@ -45,6 +46,15 @@ const Login = () => {
     }
   };
 
+  const handleLoginWithFacebook = async () => {
+    try {
+      await signInWithPopup(firebaseAuth, provider2);
+      navigate("/home");
+    } catch (error) {
+      console.log("Error al iniciar sesión:", error);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <form className="bg-white shadow-md rounded-lg px-10 py-8">
@@ -57,6 +67,14 @@ const Login = () => {
            Sign in with Google
           </button>
           
+        </div>
+        <div className="mb-6">
+          <button onClick={handleLoginWithFacebook} className="bg-blue-800 w-56 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded">
+            <div className="flex items-center justify-center">
+              <FaFacebook className="text-2xl" />
+            </div>
+            Sign in with Facebook
+          </button>
         </div>
         <p className="text-center">Or</p>
         <div className="flex flex-col mb-6">
