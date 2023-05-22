@@ -58,7 +58,40 @@ const Login = () => {
           </button>
           
         </div>
-        
+        <p className="text-center">Or</p>
+        <div className="flex flex-col mb-6">
+          <label htmlFor="email" className="mb-2 flex items-center">
+            Email:
+          </label>
+          <input
+            type="email"
+            placeholder="your email here"
+            name="email"
+            value={email}
+            required
+            className="bg-slate-300 py-2 px-4 rounded"
+          />
+        </div>
+        <div className="flex flex-col mb-6">
+          <label htmlFor="password" className="mb-2">
+            Password:
+          </label>
+          <input
+            type="password"
+            placeholder="your password here"
+            name="password"
+            value={password}
+            required
+            className="bg-slate-300 py-2 px-4 rounded"
+          />
+        </div>
+        <button type="submit" className="flex items-center text-center justify-center w-56  text-white bg-orange-500 rounded-2xl">
+          Sign In
+        </button>
+        <hr />
+        <Link to={"/register"}>
+          <p className="font-extralight text-center">Don't have an account?</p>
+        </Link>
       </form>
       <div>
        
